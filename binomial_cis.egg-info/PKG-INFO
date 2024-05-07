@@ -1,0 +1,10 @@
+Metadata-Version: 2.1
+Name: binomial_cis
+Version: 0.0.6
+Summary: Confidence intervals for binomial distributions.
+Author: Joe Vincent
+License-File: LICENSE
+Requires-Dist: numpy
+Requires-Dist: numba
+Requires-Dist: scipy
+Requires-Dist: matplotlib
