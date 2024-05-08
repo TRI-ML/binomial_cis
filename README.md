@@ -6,7 +6,7 @@ The confidence intervals computed by this package cover $p$ with exactly the use
 ## Installation
 Install the package with pip:
 ```
-pip install git+https://github.awsinternal.tri.global/joe-vincent/binomial_CIs.git
+pip install git+https://github.com/TRI-ML/binomial_CIs.git
 ```
 You will need to provide your credentials for the TRI Enterprise Github.
 
