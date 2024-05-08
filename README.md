@@ -8,7 +8,6 @@ Install the package with pip:
 ```
 pip install git+https://github.com/TRI-ML/binomial_CIs.git
 ```
-You will need to provide your credentials for the TRI Enterprise Github.
 
 
 
@@ -220,7 +219,7 @@ You will need the `build` package for this.
 
 
 ## Relevant Literature
-Below are some of the papers that I found most useful for understanding binomial confidence intervals.
+Below are some of the papers that we found most useful for understanding binomial confidence intervals.
 - [Testing Statistical Hypotheses](https://link.springer.com/book/10.1007/978-3-030-70578-7) by Lehmann and Romano
 - [On the treatment of discontinuous random variables](https://search.library.berkeley.edu/permalink/01UCS_BER/s4lks2/cdi_proquest_journals_301822201) by Eudey
 - [Table of Neyman-shortest unbiased confidence intervals for the binomial parameter](https://www.jstor.org/stable/2333308) by Blyth and Hutchinson
