@@ -173,7 +173,7 @@ mew_ub, mew_lb, p_lb, num_iters = max_expected_width(alpha, n, tol=1e-3)
 ## **Notebooks**
 The `notebooks/` directory has the following notebooks:
 - `tradeoff_table.ipynb`: Computes MES vs miscoverage rate $\alpha$ and number of samples $n$. Precomputed values have been stored in `MES_table.csv` which is visualized in a plot from the last cell of the notebook.
-- `visualizations.ipynb`: Visuallizes the mixed-monotonic forms of expected shortage and expected width. Also visualizes how these functions vary with $p$ and their maxima.
+- `visualizations.ipynb`: Visualizes the mixed-monotonic forms of expected shortage and expected width. Also visualizes how these functions vary with $p$ and their maxima.
 
 The `tests/` directory has the following notebooks:
 - `binom_helper_validation.ipynb`: Tests our implementation of the binomial coefficient, binomial pmf, and binomial cdf against their SciPy counterparts.

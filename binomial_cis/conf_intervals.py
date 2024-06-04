@@ -69,13 +69,13 @@ def accept_prob(num_args, args):
     # initial endpoints
     lb = 0
     ub = n + 1
-    lb_val = F(lb)
-    ub_val = F(ub)
+    lb_val = round(F(lb), 6)
+    ub_val = round(F(ub), 6)
 
     # perform bisection iterations
     for _ in range(num_iters):
         mid = lb + (ub - lb)/2
-        mid_val = F(mid)
+        mid_val = round(F(mid), 6)
 
         # refine endpoints
         if mid_val >= RHS:
@@ -117,10 +117,12 @@ def binom_ci(k, n, alpha, side, verbose=True, randomized=True):
         print("Comuting lower confidence bound") if verbose else None
         CI = get_lb(k, n, alpha, randomized=randomized)
     elif side == "ub":
+        print("Comuting upper confidence bound") if verbose else None
         # lb on failure prob is 1 - ub on success prob
         q_lb = get_lb(n-k, n, alpha, randomized=randomized)
         CI = 1 - q_lb
     elif side == "lb,ub":
+        print("Comuting 2-sided confidence bound") if verbose else None
         CI = get_lb_ub(k, n, alpha)
     else:
        raise ValueError("Invalid argument for 'side' given!")
@@ -184,13 +186,13 @@ def bisection(CDF, alpha, tol=1e-6):
 
     lb = 0 + epsilon
     ub = 1 - epsilon
-    lb_val = F(lb)
-    ub_val = F(ub)
+    lb_val = round(F(lb), 6)
+    ub_val = round(F(ub), 6)
 
     # perform bisection iterations
     for _ in range(n):
         mid = lb + (ub - lb)/2
-        mid_val = F(mid)
+        mid_val = round(F(mid), 6)
 
         # refine endpoints
         if mid_val >= RHS:
@@ -293,8 +295,8 @@ def binom_bisection(k, n, alpha):
     # initial endpoints
     lb = epsilon
     ub = 1 - epsilon
-    lb_val = F(lb)
-    ub_val = F(ub)
+    lb_val = round(F(lb), 6)
+    ub_val = round(F(ub), 6)
 
     if lb_val > RHS:
         return 0
@@ -304,7 +306,7 @@ def binom_bisection(k, n, alpha):
     # perform bisection iterations
     for i in range(num_iters):
         mid = (lb + ub) / 2.
-        mid_val = F(mid)
+        mid_val = round(F(mid), 6)
         # print("\nlb:", lb, "  lb_val:", lb_val)
         # print("mid:", mid, "  mid_val:", mid_val)
         # print("ub:", ub, "  ub_val:", ub_val)

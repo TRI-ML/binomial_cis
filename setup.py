@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
    name="binomial_cis",
-   version='0.0.6',
+   version='0.0.7',
    author="Joe Vincent",
    description="Confidence intervals for binomial distributions.",
    packages=find_packages(),
