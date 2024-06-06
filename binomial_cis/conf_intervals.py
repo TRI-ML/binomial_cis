@@ -69,13 +69,13 @@ def accept_prob(num_args, args):
     # initial endpoints
     lb = 0
     ub = n + 1
-    lb_val = round(F(lb), 6)
-    ub_val = round(F(ub), 6)
+    lb_val = F(lb)
+    ub_val = F(ub)
 
     # perform bisection iterations
     for _ in range(num_iters):
         mid = lb + (ub - lb)/2
-        mid_val = round(F(mid), 6)
+        mid_val = F(mid)
 
         # refine endpoints
         if mid_val >= RHS:
@@ -186,13 +186,13 @@ def bisection(CDF, alpha, tol=1e-6):
 
     lb = 0 + epsilon
     ub = 1 - epsilon
-    lb_val = round(F(lb), 6)
-    ub_val = round(F(ub), 6)
+    lb_val = F(lb)
+    ub_val = F(ub)
 
     # perform bisection iterations
     for _ in range(n):
         mid = lb + (ub - lb)/2
-        mid_val = round(F(mid), 6)
+        mid_val = F(mid)
 
         # refine endpoints
         if mid_val >= RHS:
