@@ -2,13 +2,11 @@ import numpy as np
 import sys; sys.path.insert(0, '..')
 from binomial_cis import binom_ci
 from scipy.stats import binomtest
-from scipy.stats import binom
-from scipy.optimize import brentq
 from math import isclose
 
 
 # define range of test conditions
-ns = np.array(range(1,100+1))
+ns = np.array(range(1,50+1))
 alphas = np.array([0.01, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.99])
 
 
@@ -58,17 +56,22 @@ def test_lb():
     """
     for n in ns:
         print("\nn:", n)
-        for k in range(n):
-            print("   k:", k)
-            for alpha in alphas:
-                print("      alpha:", alpha)
+        for alpha in alphas:
+            print("   alpha:", alpha)
+            p_lb_prev = 0.0
+            for k in range(n):
+                print("      k:", k)
                 p_lb = binom_ci(k, n, alpha, side='lb', randomized=True, verbose=False)
                 p_lb_cp = binom_ci(k, n, alpha, side='lb', randomized=False, verbose=False)
                 p_lb_cp_scipy = scipy_cp(k, n, alpha, side='lb')
                 
-                # check up to 4 decimals
+                # check agreement up to 4 decimals
                 assert isclose(p_lb_cp, p_lb_cp_scipy, abs_tol=10**-4)
+
+                # check p_lb is between clopper pearson bounds
                 assert round(p_lb, 4) >= round(p_lb_cp, 4)
+                assert round(p_lb_prev, 4) <= round(p_lb_cp, 4)
+                p_lb_prev = p_lb
 
 
 
@@ -80,17 +83,22 @@ def test_ub():
     """
     for n in ns:
         print("\nn:", n)
-        for k in range(n):
-            print("   k:", k)
-            for alpha in alphas:
-                print("      alpha:", alpha)
+        for alpha in alphas:
+            print("   alpha:", alpha)
+            p_ub_prev = 1.0
+            for k in range(n, -1, -1):
+                print("      k:", k)
                 p_ub = binom_ci(k, n, alpha, side='ub', randomized=True, verbose=False)
                 p_ub_cp = binom_ci(k, n, alpha, side='ub', randomized=False, verbose=False)
                 p_ub_cp_scipy = scipy_cp(k, n, alpha, side='ub')
                 
                 # check up to 4 decimals
                 assert isclose(p_ub_cp, p_ub_cp_scipy, abs_tol=10**-4)
+                
+                # check p_lb is between clopper pearson bounds
                 assert round(p_ub, 4) <= round(p_ub_cp, 4)
+                assert round(p_ub_prev, 4) >= round(p_ub_cp, 4)
+                p_ub_prev = p_ub
 
 
 

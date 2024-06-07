@@ -1,4 +1,3 @@
-import numpy as np
 from scipy import integrate
 from binomial_cis.binomial_helper import binom_cdf
 from binomial_cis.mixed_monotonic import Interval, mmp_solve
@@ -124,9 +123,9 @@ def max_expected_shortage(alpha, n, tol=1e-3, verbose=True, randomized=True):
     """
     I = Interval(0,1)
     if randomized:
-        F = lambda p1, p2: expected_shortage_mixed_monotonic(llc_accept_prob, alpha, n, p1, p2)
+        def F(p1, p2): expected_shortage_mixed_monotonic(llc_accept_prob, alpha, n, p1, p2)
     else:
-        F = lambda p1, p2: expected_shortage_mixed_monotonic_cp(alpha, n, p1, p2)
+        def F(p1, p2): expected_shortage_mixed_monotonic_cp(alpha, n, p1, p2)
     
     ub, lb, p_lb, num_iters = mmp_solve(F, I, tol=tol, max_iters=1000, verbose=verbose)
     return ub, lb, p_lb, num_iters
@@ -173,7 +172,7 @@ def max_expected_width(alpha, n, tol=1e-3, verbose=True):
     I = Interval(0,1)
     # expected width is increasing in p2 and decreasing in p1
     # mmp_solve expects increasing in first arg and decreasing in second arg
-    F = lambda p2, p1: expected_width_mixed_monotonic(llc_accept_prob_2_sided, alpha, n, p1, p2)
+    def F(p2, p1): expected_width_mixed_monotonic(llc_accept_prob_2_sided, alpha, n, p1, p2)
     ub, lb, p_lb, num_iters = mmp_solve(F, I, tol=tol, max_iters=1000, verbose=verbose)
     return ub, lb, p_lb, num_iters
 

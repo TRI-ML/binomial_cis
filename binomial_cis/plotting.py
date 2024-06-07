@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from binomial_cis.conf_intervals import llc_accept_prob, llc_accept_prob_cp, llc_accept_prob_2_sided
+from binomial_cis.conf_intervals import llc_accept_prob, llc_accept_prob_2_sided
 from binomial_cis.volume import expected_shortage, expected_shortage_mixed_monotonic, expected_shortage_cp, expected_shortage_mixed_monotonic_cp, max_expected_shortage
 from binomial_cis.volume import expected_width, expected_width_mixed_monotonic, max_expected_width
 

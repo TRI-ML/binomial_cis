@@ -63,7 +63,7 @@ def accept_prob(num_args, args):
     # (can't use helper method if we want to compile bc can't compile functions with function inputs)
     tol = 1e-6
     num_iters = int(np.ceil( np.log2(1 / tol) )) + 10
-    F = lambda t: CDF(t, p_0, n)
+    def F(t): CDF(t, p_0, n)
     RHS = 1-alpha
 
     # initial endpoints
@@ -146,8 +146,8 @@ def get_lb(num_successes, n, alpha, randomized=True):
         p_ = binom_bisection(num_successes-1, n, alpha)
 
         # could also find p_ by setting U=0:
-        # cdf_lambda = lambda p: CDF(num_successes, p, n)
-        # p_ = bisection(cdf_lambda, alpha, tol=1e-8)
+        # def cdf(p): CDF(num_successes, p, n)
+        # p_ = bisection(cdf, alpha, tol=1e-8)
         return p_
 
     t_o = test_stat(num_successes)
@@ -159,8 +159,8 @@ def get_lb(num_successes, n, alpha, randomized=True):
         p_ = 1
     else:
         # typical case
-        cdf_lambda = lambda p: CDF(t_o, p, n)
-        p_ = bisection(cdf_lambda, alpha, tol=1e-8)
+        def cdf(p): CDF(t_o, p, n)
+        p_ = bisection(cdf, alpha, tol=1e-8)
     
     return p_
 
@@ -176,7 +176,7 @@ def bisection(CDF, alpha, tol=1e-6):
     p_: a lower bound on p such that P(p_ <= p) >= 1-alpha
     """
     # solving -CDF(p) = -(1-alpha) for p where CDF is monotonically decreasing in p
-    F = lambda p: -CDF(p) # now have monotonically increasing
+    def F(p): -CDF(p) # now have monotonically increasing
     RHS = -(1-alpha)
 
     # minimum number of iterations to guarantee the tolerance
@@ -289,7 +289,7 @@ def binom_bisection(k, n, alpha):
     num_iters = 100 # int(np.ceil( np.log2(1 / tol) )) + 10
 
     # binom_cdf is decreasing as p increases
-    F = lambda p: -binom_cdf(k, n, p) # negative so now monotonically increasing in p
+    def F(p): -binom_cdf(k, n, p) # negative so now monotonically increasing in p
     RHS = -(1-alpha)
 
     # initial endpoints
