@@ -8,9 +8,7 @@ jobs:
     strategy:  
       matrix:  
         python-version: ["3.10"]  
-    defaults:
-      run:
-        working-directory: ./tests
+
     steps:  
       - uses: actions/checkout@v4  
       - name: Set up Python ${{ matrix.python-version }}  
@@ -29,6 +27,7 @@ jobs:
           ruff --output-format=github . 
         continue-on-error: true  
       - name: Test with pytest  
-        run: |  
+        run: | 
           pip install pytest
+          cd tests
           pytest -v
