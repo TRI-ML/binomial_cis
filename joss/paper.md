@@ -29,13 +29,13 @@ Constructing confidence intervals for an unknown probability success given sampl
 Research into this question dates back at least to the 1930s with the work of Clopper and Pearson [@clopper_pearson].
 One of the key culminations of this research effort were procedures given by [@eudey1949] [@lehmann_textbook] to construct uniformly most accurate (UMA) and uniformly most accurate unbiased (UMAU) confidence intervals.
 These intervals have desirable optimality properties, and provide much better inference at small sample sizes than other methods.
-The need for binomial_CIs arose out of these methods not having an open-source implementation.
+The need for binomial_cis arose out of these methods not having an open-source implementation.
 
 
 
 # Research Usage
 
-binomial_cis has been used to compute confidence intervals for the probability of task success robot manipulators in simulation and the real world [@vincent2024generalizable].
+binomial_cis has been used to compute confidence intervals for the success rate of robots in simulated and real-world tasks [@vincent2024generalizable].
 
 
 
