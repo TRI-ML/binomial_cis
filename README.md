@@ -1,4 +1,4 @@
-# binomial_CIs
+# binomial_cis
 This package computes confidence intervals for the probability of success parameter, $p$, of a binomial distribution.
 The confidence intervals computed by this package cover $p$ with exactly the user-specified probability and have minimal excess length.
 
@@ -6,7 +6,7 @@ The confidence intervals computed by this package cover $p$ with exactly the use
 ## Installation
 Install the package with pip:
 ```
-pip install git+https://github.com/TRI-ML/binomial_CIs.git
+pip install git+https://github.com/TRI-ML/binomial_cis.git
 ```
 
 
