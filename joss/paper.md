@@ -1,5 +1,5 @@
 ---
-title: 'binomial_CIs: A Python Package for Optimal Binomial Confidence Intervals'
+title: 'binomial_cis: A Python Package for Optimal Binomial Confidence Intervals'
 tags:
   - Python
   - statistics
@@ -12,14 +12,14 @@ authors:
 affiliations:
  - name: Department of Aeronautics and Astronautics, Stanford University
    index: 1
-date: 10 June 2020
+date: 10 June 2024
 bibliography: paper.bib
 ---
 
 
 
 # Summary
-[binomial_CIs](https://github.com/TRI-ML/binomial_CIs) is a Python package for computing confidence intervals for the probability of success parameter, $p$, of a binomial distribution.
+[binomial_cis](https://github.com/TRI-ML/binomial_cis) is a Python package for computing confidence intervals for the probability of success parameter, $p$, of a binomial distribution.
 
 
 
@@ -35,7 +35,7 @@ The need for binomial_CIs arose out of these methods not having an open-source i
 
 # Research Usage
 
-binomial_CIs has been used to compute confidence intervals for the probability of task success robot manipulators in simulation and the real world [@vincent2024generalizable].
+binomial_cis has been used to compute confidence intervals for the probability of task success robot manipulators in simulation and the real world [@vincent2024generalizable].
 
 
 
