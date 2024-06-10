@@ -19,8 +19,7 @@ bibliography: paper.bib
 
 
 # Summary
-
-\href{https://github.com/TRI-ML/binomial_CIs}{binomial_CIs} is a Python package for computing confidence intervals for the probability of success parameter, $p$, of a binomial distribution.
+[binomial_CIs](https://github.com/TRI-ML/binomial_CIs) is a Python package for computing confidence intervals for the probability of success parameter, $p$, of a binomial distribution.
 
 
 
