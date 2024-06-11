@@ -19,7 +19,7 @@ bibliography: paper.bib
 
 
 # Summary
-[binomial_cis](https://github.com/TRI-ML/binomial_cis) is a Python package for computing confidence intervals for the probability of success parameter, $p$, of a binomial distribution. The binomial distribution represents the likelihood of observing $k$ successes in $n$ trials where the probability of success for each trial is $p$. For example, $p$ may be the probability of a coin flip landing on heads, and $k$ the number of heads we observe after $n$ flips. One often does not know the value of $p$ and wishes to estimate this value. After observing $k$ successes in $n$ trials, a confidence interval is an interval, constructed based on $k, n$, that covers the unknown parameter $p$ with some user-specified probability. The binomial_cis package computes confidence intervals that lower and/or upper bound $p$ with a user-specified probability. 
+[binomial_cis](https://github.com/TRI-ML/binomial_cis) is a Python package for computing confidence intervals for the probability of success parameter, $p$, of a binomial distribution. The binomial distribution represents the likelihood of observing $k$ successes in $n$ trials where the probability of success for each trial is $p$. For example, $p$ may be the probability of a coin flip landing on heads, and $k$ the number of heads we observe after $n$ flips. One often does not know the value of $p$ and wishes to estimate this value. After observing $k$ successes in $n$ trials, a confidence interval is a set, constructed based on $k, n$, that covers the unknown parameter $p$ with some user-specified probability. The binomial_cis package computes confidence intervals that lower and/or upper bound $p$ with a user-specified probability. 
 
 
 
@@ -29,7 +29,7 @@ Constructing confidence intervals for an unknown probability success given sampl
 Research into this question dates back at least to the 1930s with the work of Clopper and Pearson [@clopper_pearson].
 A foundational result for constructing binomial confidence intervals of minimal width was given by [@eudey1949] and is also formalized in [@lehmann_textbook].
 We refer to these intervals as *optimal binomial confidence intervals* and they have the property of being uniformly most accurate (UMA) and uniformly most accurate unbiased (UMAU).
-Practically, these intervals can provide better inference of $p$ at small sample sizes $n \le 50$.
+Practically, these intervals can provide better inference of $p$ at small sample sizes ($n \le 50$).
 The binomial_cis package is the first open-source implementation of these optimal binomial confidence intervals.
 In addition, this software provides worst-case analysis of the tightness for the confidence intervals, a feature that is not present in other software for binomial confidence intervals.
 Practically, this feature assists the user in understanding how many samples an experiment should have in order to meet a desired level of accuracy in inferring the value of $p$.
@@ -37,8 +37,10 @@ Practically, this feature assists the user in understanding how many samples an 
 
 # Comparison to Existing Software
 There are many existing software packages for computing binomial confidence intervals.
-binomial_cis differs from the existing software in two ways, 
-1. We provide open-source implementations for the optimal binomial confidence intervals given by [@eudey1949] and is also formalized in [@lehmann_textbook].
+binomial_cis differs from the existing software in two ways:
+
+1. We provide open-source implementations for the optimal binomial confidence intervals given by [@eudey1949] and formalized in [@lehmann_textbook].
+
 2. We provide functionality for worst-case analysis of the tightness for the confidence intervals, which helps guide users on selecting the sample size for their experiments.
 
 
