@@ -6,5 +6,7 @@ setup(
    author="Joe Vincent",
    description="Confidence intervals for binomial distributions.",
    packages=find_packages(),
-   install_requires=['numpy', 'numba', 'scipy', 'matplotlib']
+   install_requires=['numpy', 'numba', 'scipy', 'matplotlib'],
+   long_description=open('README.md').read(),
+   long_description_content_type='text/markdown'
 )
