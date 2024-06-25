@@ -1,0 +1,54 @@
+# workflow from https://packaging.python.org/en/latest/guides/publishing-package-distribution-releases-using-github-actions-ci-cd-workflows/
+
+name: pypi-release
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    name: Build distribution
+    runs-on: ubuntu-latest  
+    strategy:  
+      matrix:  
+        python-version: ["3.10"]  
+
+    steps:  
+    - uses: actions/checkout@v4  
+    - name: Set up Python ${{ matrix.python-version }}  
+      uses: actions/setup-python@v5  
+      with:  
+        python-version: ${{ matrix.python-version }}  
+    - name: Display Python version
+      run: python -c "import sys; print(sys.version)"
+    - name: Install pypa/build
+      run: >-
+        python3 -m
+        pip install
+        build
+        --user
+    - name: Build a binary wheel and a source tarball
+      run: python3 -m build
+    - name: Store the distribution packages
+      uses: actions/upload-artifact@v3
+      with:
+        name: python-package-distributions
+        path: dist/
+
+  publish-to-pypi:
+    name: >-
+      Publish Python distribution to PyPI
+    needs:
+    - build
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write  # IMPORTANT: mandatory for trusted publishing
+
+    steps:
+    - name: Download all the dists
+      uses: actions/download-artifact@v3
+      with:
+        name: python-package-distributions
+        path: dist/
+    - name: Publish distribution to PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
+  
