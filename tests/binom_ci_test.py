@@ -1,8 +1,9 @@
 import numpy as np
 import sys; sys.path.insert(0, '..')
-from binomial_cis import binom_ci
+from binomial_cis import binom_ci, UMAU_lb, UMAU_ub
 from scipy.stats import binomtest
 from math import isclose
+import pandas as pd
 
 
 # define range of test conditions
@@ -22,6 +23,7 @@ alphas = np.array([0.01, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.99])
 
 def scipy_cp(k, n, alpha, side):
     """
+    Inputs
     k: number of successes
     n: number of samples
     alpha: miscoverage rate, P(p_ <= p) >= 1-alpha
@@ -38,6 +40,57 @@ def scipy_cp(k, n, alpha, side):
     p_cp = ci.low if side=='lb' else ci.high
 
     return p_cp
+
+
+def fill_our_df(df, alpha):
+    """
+    Inputs
+    df: dataframe of 2-sided bound values from Blyth paper
+    alpha: miscoverage raate
+
+    Returns
+    my_df: dataframe filled with bound values we compute
+    """
+    # make a copy of the df with all values as nan
+    my_df = df.copy()
+    my_df.loc[:, :] = np.nan
+
+    # fill all values that aren't nans in the original df
+    for t in my_df.index:
+        # print("t:", t)
+        for n in my_df.columns.get_level_values(0).unique():
+            # print("n:", n)
+            lb_val = df[n]['l'].loc[t]
+            
+            # only fill if value in original df
+            if not np.isnan(lb_val):
+                lb, ub = get_lb_ub(t, n, alpha)
+                my_df.loc[t, n] = [round(100*lb), round(100*ub)]
+    
+    return my_df
+
+
+def get_lb_ub(t_o, n, alpha):
+    """
+    Inputs
+    t_o: value of the test statistic
+    n: number of samples
+    alpha: miscoverage rate
+
+    Returns
+    p_lb, p_ub: lower and upper confidence bounds
+    """
+    # check edge cases
+    # see "Nonoptimality of Randomized Confidence Sets" by Casella
+    if t_o < alpha:
+        p_lb, p_ub = 0, 0
+    elif t_o > n + 1-alpha:
+        p_lb, p_ub = 1, 1
+    else:
+        # typical case
+        p_lb = UMAU_lb(t_o, n, alpha)
+        p_ub = UMAU_ub(t_o, n, alpha)
+    return p_lb, p_ub
 
 
 
@@ -127,3 +180,33 @@ def test_paper_data():
     rt2_lbs = np.array([binom_ci(rt2_successes[i], n_rollouts[i], alpha, 'lb', randomized=True, verbose=False) for i in range(3)])
 
     return None
+
+
+
+def test_2_sided():
+    """
+    Test that our 2-sided intervals match those in the 1960 paper:
+    Table of Neyman-Shortest Unbiased Confidence Intervals for the Binomial Parameter
+    by Colin R. Blyth and David W. Hutchinson
+    """
+
+    sheets = ['95_T1', '95_T2', '95_T3', '95_T4',
+              '99_T1', '99_T2', '99_T3', '99_T4']
+
+    for sheet in sheets:
+        alpha = (100 - int(sheet[:2])) / 100
+
+        # these values are from Blyth and Hutchinson's 1960 paper
+        df = pd.read_excel('2_sided_val_table.xlsx', header=[0,1], index_col=0, sheet_name=sheet)
+        df.index = np.round(df.index, 1) # make sure indices are rounded to 1 decimal place
+
+        # these values are generated using our code
+        our_df = fill_our_df(df, alpha)
+
+        # check that our 2-sided bounds generally agree with the Blyth paper
+        assert (our_df - df).abs().max().max() <= 1.0
+
+
+
+
+
