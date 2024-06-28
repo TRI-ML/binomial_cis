@@ -6,17 +6,25 @@ from binomial_cis.volume import expected_width, expected_width_mixed_monotonic, 
 
 def plot_expected_shortage_mixed_monotonic(alpha, n, p1s, p2s, verbose=True, randomized=True):
     """
-    Contour plot of the mixed-monotonic form of expected shortage.
+    Generate a contour plot of the mixed-monotonic form of expected shortage.
 
-    Inputs
-    alpha: miscoverage rate
-    n: number of samples
-    p1s: prob. of success parameter for limit of integration
-    p2s: prob. of success parameter for CDF
-    randomized: if False then use Clopper-Pearson
+    Parameters
+    ----------
+    alpha: float
+        Miscoverage rate, P(p in CI) = 1-alpha.
+    n: int
+        Number of trials (samples).
+    p1: float
+        True probability of success input as limit of integration.
+    p2: float
+        True probability of success input as paremter of CDF in integrand.
+    randomized: bool, default True
+        If False then use Clopper-Pearson CI.
     
     Returns
-    Contour plot showing expected shortage for each parameter combination.
+    -------
+    plot
+        Contour plot showing expected shortage for each parameter combination.
     """
     # given grid of p1s and p2s
     p1s2D, p2s2D = np.meshgrid(p1s, p2s, indexing="ij")
@@ -47,14 +55,21 @@ def plot_shortage_curve(alpha, n, num_p=21, verbose=True, randomized=True):
     """
     Plot expected shortage as a function of true prob of success p.
 
-    Inputs
-    alpha: miscoverage rate
-    n: number of samples
-    num_p: number of values of p to compute shortage for
-    randomized: if False then use Clopper-Pearson
+    Parameters
+    ----------
+    alpha: float
+        Miscoverage rate, P(p in CI) = 1-alpha.
+    n: int
+        Number of trials (samples).
+    num_p: int
+        Number of values of p to compute shortage for.
+    randomized: bool, default True
+        If False then use Clopper-Pearson CI.
 
     Returns
-    Plot of curve which visualizes expected shortage as a function of true prob of success p.
+    -------
+    plot
+        Plot of curve which visualizes expected shortage as a function of true prob of success p.
     """
     ps = np.linspace(0,1,num=num_p)
     exp_shortages = np.zeros(num_p)
@@ -93,16 +108,25 @@ def plot_shortage_curve(alpha, n, num_p=21, verbose=True, randomized=True):
 
 def plot_expected_width_mixed_monotonic(alpha, n, p1s, p2s, verbose=True):
     """
-    Contour plot of the mixed-monotonic form of expected width.
+    Generate a contour plot of the mixed-monotonic form of expected width.
 
-    Inputs
-    alpha: miscoverage rate
-    n: number of samples
-    p1s: prob. of success parameter for first CDF tern
-    p2s: prob. of success parameter for second CDF term
+    Parameters
+    ----------
+    alpha: float
+        Miscoverage rate, P(p in CI) = 1-alpha.
+    n: int
+        Number of trials (samples).
+    p1: float
+        True probability of success input as limit of integration.
+    p2: float
+        True probability of success input as paremter of CDF in integrand.
+    randomized: bool, default True
+        If False then use Clopper-Pearson CI.
     
     Returns
-    Contour plot showing expected width for each parameter combination.
+    -------
+    plot
+        Contour plot showing expected width for each parameter combination.
     """
     # given grid of taus and alphas
     p1s2D, p2s2D = np.meshgrid(p1s, p2s, indexing="ij")
@@ -130,13 +154,20 @@ def plot_width_curve(alpha, n, num_p=21, verbose=True):
     """
     Plot expected width as a function of true prob of success p.
 
-    Inputs
-    alpha: miscoverage rate
-    n: number of samples
-    num_p: number of values of p to compute width for
+    Parameters
+    ----------
+    alpha: float
+        Miscoverage rate, P(p in CI) = 1-alpha.
+    n: int
+        Number of trials (samples).
+    num_p: int
+        Number of values of p to compute width for.
+
 
     Returns
-    Plot of curve which visualizes expected width as a function of true prob of success p.
+    -------
+    plot
+        Plot of curve which visualizes expected width as a function of true prob of success p.
     """
     ps = np.linspace(0,1,num=num_p)
     exp_widths = np.zeros(num_p)

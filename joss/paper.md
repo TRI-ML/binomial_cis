@@ -12,7 +12,7 @@ authors:
 affiliations:
  - name: Department of Aeronautics and Astronautics, Stanford University
    index: 1
-date: 11 June 2024
+date: 28 June 2024
 bibliography: paper.bib
 ---
 
@@ -25,6 +25,7 @@ bibliography: paper.bib
 # Statement of Need
 
 Constructing confidence intervals for an unknown probability success given samples of successes and failures is one of the most fundamental problems in statistical inference.
+Confidence intervals for success probabilities are used in many disciplines including medicine[@altman2013statistics], astronomy[@cameron2011estimation], and robotics[@vincent2024generalizable].
 Research into this question dates back at least to the 1930s with the work of Clopper and Pearson [@clopper_pearson].
 A foundational result for constructing binomial confidence intervals of minimal width was given by [@eudey1949] and is formalized in [@lehmann_textbook].
 We refer to these intervals as *optimal binomial confidence intervals* and they have the property of being uniformly most accurate (UMA) and uniformly most accurate unbiased (UMAU).
@@ -51,7 +52,7 @@ binomial_cis has been used to compute confidence intervals for the success rate 
 
 # Acknowledgements
 
-Financial support was provided by Toyota Research Institute.
+Financial support was provided by Toyota Research Institute, where the author began development of the software during an internship.
 
 
 

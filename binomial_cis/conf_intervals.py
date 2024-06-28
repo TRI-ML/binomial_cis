@@ -102,16 +102,27 @@ llc_accept_prob = LowLevelCallable(accept_prob.ctypes) # SciPy LowLevelCallable 
 
 
 def binom_ci(k, n, alpha, side, verbose=True, randomized=True):
-    """
-    Inputs
-    k: number of observed successes in n trials
-    n: number of trials
-    alpha: miscoverage rate, P(p in CI) = 1-alpha
-    verbose: whether to print intermediate updates
-    randomized: if true solves for the UMA bounds, if false then solves for (less efficient) non-randomized bounds
+    """ Compute a binomial confidence interval.
+
+    Parameters
+    ----------
+    k: int
+        Number of observed successes in `n` trials.
+    n: int
+        Number of trials (samples).
+    alpha: float
+        Miscoverage rate, P(p in CI) = 1-alpha.
+    side: {'lb', 'ub', 'lb,ub'}
+        Selection of lower, upper, or 2-sided bounds.
+    verbose: bool, default True 
+        Whether to print intermediate updates.
+    randomized: bool, default True
+        If True solves for the UMA bounds, if False then solves for (less efficient) non-randomized bounds.
     
     Returns
-    CI: either a lower bound, upper bound, or simultaneous lower & upper bounds
+    -------
+    CI: float
+        Either a lower bound, upper bound, or simultaneous lower & upper bounds (returned as a tuple)
     """
     if side == "lb":
         print("Comuting lower confidence bound") if verbose else None
@@ -271,8 +282,6 @@ def accept_prob_cp(num_args, args):
     
     return accept_prob
 
-llc_accept_prob_cp = LowLevelCallable(accept_prob_cp.ctypes) # SciPy LowLevelCallable version of accept_prob
-
 
 
 def binom_bisection(k, n, alpha):
@@ -337,13 +346,21 @@ def binom_bisection(k, n, alpha):
 
 def get_ps_cp(p, n, alpha):
     """
-    Inputs
-    p: true success probability
-    n: number of samples
-    alpha: miscoverage rate, P(p_ <= p) >= 1-alpha
+    Compute all possible Clopper-Pearson lower bounds given `n` trials.
+
+    Parameters
+    ----------
+    p: float
+        True success probability.
+    n: int
+        Number of trials (samples).
+    alpha: float
+        Miscoverage rate, P(p in CI) = 1-alpha.
 
     Returns
-    ps: array of possible lower bounds from CP that are cutoff points in the expected shortage integral
+    -------
+    ps: array_like
+        Array of possible Clopper-Pearson lower bounds that are cutoff points in the expected shortage integral.
     """
     ps = np.array([0.])
 
@@ -416,13 +433,21 @@ def get_lb_ub(num_successes, n, alpha):
 
 def UMAU_lb(t_o, n, alpha, tol=1e-6):
     """
-    Inputs
-    t_o: observed test statistic
-    n: number of trials
-    alpha: miscoverage rate
+    Computes the lower bound for a 2-sided UMAU CI.
+
+    Parameters
+    ----------
+    t_o: float
+        Observed test statistic (number of successes + uniform random number).
+    n: int
+        Number of trials (samples).
+    alpha: float
+        Miscoverage rate, P(p in CI) = 1-alpha.
     
     Returns
-    p_lb: lower bound of UMAU confidence interval for p
+    -------
+    p_lb: float
+        Lower bound of UMAU confidence interval for p
     """
     # find smallest value of p, such that t_o in [t_lo, t_up]
 
@@ -471,13 +496,21 @@ def UMAU_lb(t_o, n, alpha, tol=1e-6):
 
 def UMAU_ub(t_o, n, alpha, tol=1e-6):
     """
-    Inputs
-    t_o: observed test statistic
-    n: number of trials
-    alpha: miscoverage rate
+    Computes the upper bound for a 2-sided UMAU CI.
+
+    Parameters
+    ----------
+    t_o: float
+        Observed test statistic (number of successes + uniform random number).
+    n: int
+        Number of trials (samples).
+    alpha: float
+        Miscoverage rate, P(p in CI) = 1-alpha.
     
     Returns
-    p_ub: upper bound of UMAU confidence interval for p
+    -------
+    p_ub: float
+        Upper bound of UMAU confidence interval for p
     """
     # find largest value of p, such that t_o in [t_lo, t_up]
 
@@ -703,21 +736,30 @@ llc_accept_prob_2_sided = LowLevelCallable(accept_prob_2_sided.ctypes) # SciPy L
 
 def max_accept_prob_2_sided(alpha, n, p, n_grid):
     """
-    Inputs
-    alpha: miscoverage rate, P(p_ <= p) >= 1-alpha
-    n: sample size
-    p: true probability of success
-    n_grid: size of discrete grid to search over
+    Grid search to find the parameter which has the highest probability of being in the 2-sided CI.
+
+    Parameters
+    ----------
+    alpha: float
+        Miscoverage rate, P(p in CI) = 1-alpha.
+    n: int
+        Number of trials (samples).
+    p: float
+        True probability of success.
+    n_grid: int
+        Size of discrete grid to search over.
 
     Returns
-    max_ap: maximum acceptance probability
-    max_p_0: location of maximum acceptance probability
-
-    It is unclear whether we can rigorously solve for this using mixed monotonic programming
-    accept_prob_2_sided is mixed monotonic in p_0, but I'm not sure if we can define the function
-    with split p_0 inputs.
+    -------
+    max_ap: float
+        Maximum acceptance probability.
+    max_p_0: float
+        Parameter that attains the maximum acceptance probability.
     """
-
+    # It is unclear whether we can rigorously solve for this using mixed monotonic programming
+    # accept_prob_2_sided is mixed monotonic in p_0, but I'm not sure if we can define the function
+    # with split p_0 inputs.
+    
     p_0s = np.linspace(0,1,num=n_grid, endpoint=True)
     aps = [accept_prob_2_sided(5, [p_0, alpha, n, p, p]) for p_0 in p_0s]
 

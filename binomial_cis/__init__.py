@@ -1,6 +1,6 @@
 from .binomial_helper import binom_coeff, binom_pmf, binom_cdf
-from .conf_intervals import accept_prob, llc_accept_prob, binom_ci, CDF
-from .conf_intervals import accept_prob_cp, llc_accept_prob_cp, get_ps_cp
+from .conf_intervals import accept_prob, llc_accept_prob, binom_ci
+from .conf_intervals import accept_prob_cp, get_ps_cp
 from .conf_intervals import accept_prob_2_sided, llc_accept_prob_2_sided, max_accept_prob_2_sided, UMAU_lb, UMAU_ub
 from .mixed_monotonic import Interval, mmp_solve
 from .plotting import plot_expected_shortage_mixed_monotonic, plot_shortage_curve

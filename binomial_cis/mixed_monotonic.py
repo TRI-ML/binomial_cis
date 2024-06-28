@@ -5,31 +5,73 @@ import warnings
 class Interval:
     """
     Class for storing and performing common operations on intervals.
+
+    Parameters
+    ----------
+    x_min: float
+        Lower bound of interval
+    x_max: float
+        Upper bound of interval
     """
     def __init__(self, x_min, x_max):
         self.x_min = x_min
         self.x_max = x_max
     
     def get_midpoint(self):
+        """
+        Computes the midpoint of the interval.
+
+        Returns
+        -------
+        float
+            Midpoint of interval
+        """
         return self.x_min + (self.x_max - self.x_min)/2
     
     def volume(self):
+        """
+        Computes the width of the interval.
+
+        Returns
+        -------
+        float
+            Width of interval
+        """
         return self.x_max - self.x_min
     
     def get_feasible(self, F):
+        """
+        Finds a feasible point in the interval.
+
+        Parameters
+        ----------
+        F: function
+            Mixed monotonic function (increasing in first arg, decreasing in second arg)
+
+        Returns
+        -------
+        x_feas: float
+            Midpoint of interval
+        x_feas_val: float
+            Value of midpoint on the function `F`
+        """
         x_feas = self.get_midpoint()
         x_feas_val = F(x_feas, x_feas)
         return x_feas, x_feas_val
     
     def get_ub(self, F):
         """
-        Gets a certified upper bound of the function F over the interval.
+        Computes a certified upper bound of the function `F` over the interval.
 
-        Inputs
-        F: F(x1, x2) mixed monotonic function (increasing in x1, decreasing in x2)
+        Parameters
+        ----------
+        F: function
+            Mixed monotonic function (increasing in first arg, decreasing in second arg)
         
-        Outputs
-        ub: certified upper bound of max(F) over Interval
+        Returns
+        -------
+        ub: float
+            Certified upper bound of max(F) over Interval
         """
         ub = F(self.x_max, self.x_min)
         return ub
@@ -37,6 +79,11 @@ class Interval:
     def split(self):
         """
         Split along longest axis, else split along first axis.
+
+        Returns
+        -------
+        I1, I2: Interval
+            Intervals resulting from splitting the orignal in half.
         """
         midpoint = self.get_midpoint()
         I1 = Interval(self.x_min, midpoint)
@@ -48,16 +95,23 @@ def mmp_solve(F, I, tol=1e-3, max_iters=1000, verbose=True):
     """
     Uses mixed-monotonic programming to solve for a certified maximum of the function F over the interval I.
 
-    Inputs
-    F: F(x1, x2) mixed monotonic function (increasing in x1, decreasing in x2)
-    I: Domain of maximization. Interval object
-    tol: maximum solve tolerance. terminate when ub - lb <= tol
+    Parameters
+    ----------
+    F: function
+            Mixed monotonic function (increasing in first arg, decreasing in second arg)
+    I: Interval
+        Domain to maximize over.
     
     Returns
-    ub: certified upper bound of max F over Interval R within tol of global max
-    lb: certified lower bound of max F over Interval R within tol of global max
-    x_lb: x that achieves lb
-    num_iters: number of iterations taken for the solve
+    -------
+    ub: float
+        Certified upper bound of max `F` over `I` within `tol` of global max.
+    lb: float
+        Certified lower bound of max `F` over `I` within `tol` of global max.
+    x_lb: float
+        Input that achieves `lb`.
+    num_iters: int
+        Number of iterations taken for the solve.
     """
     # initialize set of intervals and associated ubs in each
     intervals = [I]
