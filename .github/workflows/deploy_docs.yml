@@ -33,7 +33,7 @@ jobs:
           python setup.py install
 
       - name: Run Sphinx build action 
-      - uses: ammaraskar/sphinx-action@master
+        uses: ammaraskar/sphinx-action@master
         with:
           docs-folder: "docs/"
 
