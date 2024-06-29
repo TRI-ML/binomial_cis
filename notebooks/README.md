@@ -1,0 +1,3 @@
+- `tradeoff_table.ipynb`: This notebook is used to compute maximum expected shortage (MES) vs miscoverage rate (alpha) and number of samples (n). Precomputed values have been stored in `MES_table.csv` which is visualized in a plot from the last cell of the notebook.
+
+- `conf_set_validation.ipynb`: This notebook is used to visualize the mixed-monotonic forms of expected shortage and expected width. Also visualized is how these functions vary with $p$ and their maxima.

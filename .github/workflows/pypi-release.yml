@@ -1,6 +1,6 @@
 # workflow from https://packaging.python.org/en/latest/guides/publishing-package-distribution-releases-using-github-actions-ci-cd-workflows/
 
-name: pypi-release
+name: PyPI Release
 
 on: workflow_dispatch
 

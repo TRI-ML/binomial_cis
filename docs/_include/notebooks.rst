@@ -21,7 +21,7 @@ Then, create a virtual environment and load the dependencies (these commands are
 
 tradeoff_table.ipynb
 ********************
-This notebook is used to computes maximum expected shortage (MES) vs miscoverage rate (alpha) and number of samples :math:`n`. 
+This notebook is used to compute maximum expected shortage (MES) vs miscoverage rate (alpha) and number of samples :math:`n`. 
 Precomputed values have been stored in ``MES_table.csv`` which is visualized in a plot from the last cell of the notebook.
 
 
