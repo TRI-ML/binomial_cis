@@ -5,6 +5,11 @@ from scipy.stats import binomtest
 from math import isclose
 import pandas as pd
 
+from binomial_cis.conf_intervals import llc_accept_prob, llc_accept_prob_2_sided
+from binomial_cis.volume import expected_excess, max_expected_excess
+from binomial_cis.volume import expected_shortage, max_expected_shortage
+from binomial_cis.volume import expected_width, max_expected_width
+
 
 # define range of test conditions
 ns = np.array(range(1,50+1))
@@ -208,5 +213,22 @@ def test_2_sided():
 
 
 
+def test_mixed_monotonicity():
+    """
+    Test that our values for MES, MEE, and MEW actually upper bound the
+    sample-based maximum of these quantities
+    """
+    n = 10
+    alpha = 0.05
+    mes_ub, _, _, _ = max_expected_shortage(alpha, n, verbose=False)
+    mee_ub, _, _, _ = max_expected_excess(alpha, n, verbose=False)
+    mew_ub, _, _, _ = max_expected_width(alpha, n, verbose=False)
 
+    sample_mes = max([expected_shortage(llc_accept_prob, alpha, n, p) for p in np.linspace(0.01, 0.99, num=50)])
+    sample_mee = max([expected_excess(llc_accept_prob, alpha, n, p) for p in np.linspace(0.01, 0.99, num=50)])
+    sample_mew = max([expected_width(llc_accept_prob_2_sided, alpha, n, p) for p in np.linspace(0.01, 0.99, num=50)])
+
+    assert mes_ub >= sample_mes
+    assert mee_ub >= sample_mee
+    assert mew_ub >= sample_mew
 

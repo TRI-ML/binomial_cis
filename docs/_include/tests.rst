@@ -20,9 +20,10 @@ Then, create a virtual environment and load the dependencies (these commands are
 
 binom_ci_test.py
 ******************
-This file contains functions to test the correctness of the lower, upper, and 2-sided bounds.
+This file contains functions to test the correctness of the lower, upper, 2-sided bounds, and the mixed monotonic solver.
 The lower/upper bound tests ensure the bounds we compute are better than Clopper-Pearson bounds (without being too optimistic).
 The 2-sided test ensures that our 2-sided bounds agree with those computed by Blyth and Hutchinson in their 1960 paper titled "Table of Neyman-Shortest Unbiased Confidence Intervals for the Binomial Parameter".
+The mixed monotonic test ensures that the computed maximum of expected shortage/excess/width is greater than the sample-based maximum of these quantities.
 We use a Github Action to automatically run the tests in this file via ``pytest``. 
 To run the tests yourself simply navigate to the ``tests/`` directory and run
 
