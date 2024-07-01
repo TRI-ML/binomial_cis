@@ -51,6 +51,8 @@ Find maximum expected shortage given miscoverage rate and number of samples:
 
 .. code-block::
 
+   from binomial_cis import max_expected_shortage
+
    mes_ub, mes_lb, p_lb, num_iters = max_expected_shortage(alpha, n, tol=1e-3)
 
 
@@ -75,6 +77,8 @@ Find maximum expected excess given miscoverage rate and number of samples:
 
 .. code-block::
 
+   from binomial_cis import max_expected_excess
+   
    mee_ub, mee_lb, p_lb, num_iters = max_expected_excess(alpha, n, tol=1e-3)
 
 
@@ -99,6 +103,8 @@ Find simultaneous lower and upper bounds on :math:`p`:
 Find maximum expected width given miscoverage rate and number of samples:
 
 .. code-block::
+
+   from binomial_cis import max_expected_width
 
    mew_ub, mew_lb, p_lb, num_iters = max_expected_width(alpha, n, tol=1e-3)
 
