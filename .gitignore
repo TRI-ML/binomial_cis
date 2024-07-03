@@ -22,6 +22,7 @@ var/
 wheels/
 share/python-wheels/
 *.egg-info/
+binomial_cis.egg-info/
 .installed.cfg
 *.egg
 MANIFEST
@@ -161,3 +162,6 @@ cython_debug/
 
 # LibreOffice Calc files
 .ods
+
+# VCcode
+.vscode
