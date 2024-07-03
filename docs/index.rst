@@ -117,6 +117,7 @@ More Resources
    :maxdepth: 1
 
    _include/background
+   _include/math_background
    _include/notebooks
    _include/tests
    _include/api_reference
