@@ -125,15 +125,15 @@ def binom_ci(k, n, alpha, side, verbose=True, randomized=True):
         Either a lower bound, upper bound, or simultaneous lower & upper bounds (returned as a tuple)
     """
     if side == "lb":
-        print("Comuting lower confidence bound") if verbose else None
+        print("Computing lower confidence bound") if verbose else None
         CI = get_lb(k, n, alpha, randomized=randomized)
     elif side == "ub":
-        print("Comuting upper confidence bound") if verbose else None
+        print("Computing upper confidence bound") if verbose else None
         # lb on failure prob is 1 - ub on success prob
         q_lb = get_lb(n-k, n, alpha, randomized=randomized)
         CI = 1 - q_lb
     elif side == "lb,ub":
-        print("Comuting 2-sided confidence bound") if verbose else None
+        print("Computing 2-sided confidence bound") if verbose else None
         CI = get_lb_ub(k, n, alpha)
     else:
        raise ValueError("Invalid argument for 'side' given!")
