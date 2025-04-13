@@ -44,8 +44,8 @@ def binom_pmf(k, n, p):
     else:
         # following code from https://stackoverflow.com/a/45869209
         log_binom_coeff = 0
-        for i in range(1, int(k) + 1): # should loop from i = 1, ..., k
-            log_binom_coeff += np.log(n - i + 1 ) - np.log(i)
+        for i in range(1, int(min(k, n - k)) + 1): # should loop from i = 1, ..., k
+            log_binom_coeff += np.log(n - i + 1) - np.log(i)
         log_pmf = log_binom_coeff + k * np.log(p) + (n-k) * np.log1p(-p)
         pmf = np.exp(log_pmf)
         # safeguard against floating point errors
