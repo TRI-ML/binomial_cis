@@ -42,9 +42,10 @@ def binom_pmf(k, n, p):
         else:
             pmf = 0
     else:
-        # following code from https://stackoverflow.com/a/45869209
+        # Use the multiplicative formula for computational efficiency:
+        # https://en.wikipedia.org/wiki/Binomial_coefficient#Multiplicative_formula
         log_binom_coeff = 0
-        for i in range(1, int(min(k, n - k)) + 1): # should loop from i = 1, ..., k
+        for i in range(1, int(min(k, n - k)) + 1):
             log_binom_coeff += np.log(n - i + 1) - np.log(i)
         log_pmf = log_binom_coeff + k * np.log(p) + (n-k) * np.log1p(-p)
         pmf = np.exp(log_pmf)
