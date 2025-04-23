@@ -1,0 +1,276 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mathematical Background &mdash; binomial_cis 0.0.11 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=0c446633"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Notebooks" href="notebooks.html" />
+    <link rel="prev" title="Background" href="background.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            binomial_cis
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="background.html">Background</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Mathematical Background</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#uniformly-most-accurate-uma">Uniformly Most Accurate (UMA)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#uniformly-most-accurate-unbiased-umau">Uniformly Most Accurate Unbiased (UMAU)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#uma-lower-bound">UMA Lower Bound</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#uma-upper-bound">UMA Upper Bound</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#umau-2-sided-bound">UMAU 2-Sided Bound</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#clopper-pearson-lower-bound">Clopper-Pearson Lower Bound</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks.html">Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="potential_pitfalls.html">Potential Pitfalls</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community_guidelines.html">Community Guidelines</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">binomial_cis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Mathematical Background</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/_include/math_background.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="mathematical-background">
+<h1>Mathematical Background<a class="headerlink" href="#mathematical-background" title="Link to this heading"></a></h1>
+<section id="uniformly-most-accurate-uma">
+<h2>Uniformly Most Accurate (UMA)<a class="headerlink" href="#uniformly-most-accurate-uma" title="Link to this heading"></a></h2>
+<p>The standard notion of optimality for 1-sided confidence bounds is that of being uniformly most accurate (UMA).
+Here we present the UMA condition for a lower confidence bound (Eq. 3.22 of <a class="reference internal" href="#lehmann" id="id1"><span>[Lehmann]</span></a>), and the condition for upper confidence bounds is analagous.
+For test statistic <span class="math notranslate nohighlight">\(T\)</span>, a lower confidence bound <span class="math notranslate nohighlight">\(\underline{p}(T)\)</span> satisfying</p>
+<div class="math notranslate nohighlight">
+\[\mathbb{P}_p [\underline{p}(T) \le p] \ge 1-\alpha \quad \forall p\]</div>
+<p>and, amongst all possible lower bounds <span class="math notranslate nohighlight">\(\underline{p}^\prime(T)\)</span>, minimizes</p>
+<div class="math notranslate nohighlight">
+\[\mathbb{P}_p [\underline{p}^\prime(T) \le p_0] \quad \forall p_0 &lt; p\]</div>
+<p>is a UMA lower confidence bound at confidence level <span class="math notranslate nohighlight">\(1-\alpha\)</span>.</p>
+</section>
+<section id="uniformly-most-accurate-unbiased-umau">
+<h2>Uniformly Most Accurate Unbiased (UMAU)<a class="headerlink" href="#uniformly-most-accurate-unbiased-umau" title="Link to this heading"></a></h2>
+<p>A UMAU 2-sided confidence interval satisfies the property of unbiasedness (Eq. 5.39 of <a class="reference internal" href="#lehmann" id="id2"><span>[Lehmann]</span></a>):</p>
+<div class="math notranslate nohighlight">
+\[\mathbb{P}_p [\underline{p}(T) \le p \le \overline{p}(T)] \ge  \mathbb{P}_p [\underline{p}(T) \le p^\prime \le \overline{p}(T)] \quad \forall p^\prime \neq p\]</div>
+<p>and amongst all unbiased confidence intervals is UMA.
+Being unbiased ensures that true unknown parameter has the highest probability of being included in the interval.</p>
+</section>
+<section id="uma-lower-bound">
+<h2>UMA Lower Bound<a class="headerlink" href="#uma-lower-bound" title="Link to this heading"></a></h2>
+<p>The background for the UMA lower bound is from <a class="reference internal" href="#vincent" id="id3"><span>[Vincent]</span></a>.
+Let <span class="math notranslate nohighlight">\(\textup{bin}(k,n,p)\)</span> and <span class="math notranslate nohighlight">\(\textup{Bin}(k,n,p)\)</span> denote the binomial probability mass function (PMF) and CDF, with <span class="math notranslate nohighlight">\(k\)</span> successes, <span class="math notranslate nohighlight">\(n\)</span> trials, and success probability <span class="math notranslate nohighlight">\(p\)</span>.
+The floor function <span class="math notranslate nohighlight">\(\lfloor x \rfloor\)</span> rounds the argument <span class="math notranslate nohighlight">\(x\)</span> down to the nearest integer.
+Now, define a test statistic <span class="math notranslate nohighlight">\(T = U + \sum_{i=1}^n X_i\)</span> where <span class="math notranslate nohighlight">\(U \sim \mathcal{U}[0,1]\)</span> and <span class="math notranslate nohighlight">\(X_i\)</span> are the observed successes and failures.
+Then <span class="math notranslate nohighlight">\(T\)</span> is random with probability density</p>
+<div class="math notranslate nohighlight">
+\[f_p(t) = {n \choose \lfloor t \rfloor} p^{\lfloor t \rfloor} (1-p)^{n - \lfloor t \rfloor}.\]</div>
+<p>Then, we can compute the CDF as follows,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}F_p(t) = \int_0^{t} {n \choose \lfloor x \rfloor} p^{\lfloor x \rfloor} (1-p)^{n - \lfloor x \rfloor} dx \\
+= \textup{Bin}(\lfloor t \rfloor - 1, n, p) + (t - \lfloor t \rfloor) \cdot \textup{bin}(\lfloor t \rfloor, n, p).\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(F_p(t)\)</span> is continuous in both <span class="math notranslate nohighlight">\(t\)</span> and <span class="math notranslate nohighlight">\(p\)</span>.</p>
+<p>Then, by Corollary 3.5.1 of <a class="reference internal" href="#lehmann" id="id4"><span>[Lehmann]</span></a>, we have the UMA lower confidence bound,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\underline{p}(t) = \begin{cases}
+                    0 \quad &amp;\text{if } t &lt; 1-\alpha \\
+                    1 \quad &amp;\text{if } t &gt; n + 1-\alpha \\
+                    p^* \quad &amp;\text{s.t. } F_{p^*}(t) = 1-\alpha \text{ otherwise.}
+\end{cases}\end{split}\]</div>
+<p>That satisfies <span class="math notranslate nohighlight">\(\mathbb{P}[\underline{p} \le p] = 1-\alpha\)</span></p>
+<p>The bisection method can be used to solve <span class="math notranslate nohighlight">\(F_{p^*}(t) = 1-\alpha\)</span>, as <span class="math notranslate nohighlight">\(F_p(t)\)</span> is monotonically decreasing in <span class="math notranslate nohighlight">\(p\)</span>.
+Taking limits <span class="math notranslate nohighlight">\(p \rightarrow 0^+\)</span> and <span class="math notranslate nohighlight">\(p \rightarrow 1^-\)</span>, one can show that <span class="math notranslate nohighlight">\(F_p(t) = 1-\alpha\)</span> has no solution when <span class="math notranslate nohighlight">\(t&lt;1-\alpha\)</span> and <span class="math notranslate nohighlight">\(t&gt;n+1-\alpha\)</span>, we thus set <span class="math notranslate nohighlight">\(\underline{p}\)</span> to either zero or one in these cases.
+This bound is well-established (see Example 3.5.2 of <a class="reference internal" href="#lehmann" id="id5"><span>[Lehmann]</span></a>).
+The Clopper-Pearson bound can be obtained by setting <span class="math notranslate nohighlight">\(U = 0\)</span> in the test statistic.</p>
+<p>Next, (employing the Ghosh-Pratt identity) we compute expected shortage. A useful identity is</p>
+<div class="math notranslate nohighlight">
+\[\mathbb{P}[\underline{p} \le p_0] = \mathbb{P}[t \le t^*(p_0)]\]</div>
+<p>where <span class="math notranslate nohighlight">\(t^*(p_0)\)</span> is the unique value that satisfies</p>
+<div class="math notranslate nohighlight">
+\[F_{p_0}(t^*) = 1-\alpha.\]</div>
+<p>Then, we can compute expected shortage as</p>
+<div class="math notranslate nohighlight">
+\[\textup{ES}(p) = \int_0^p \mathbb{P}_p[\underline{p} \le p_0] dp_0 = \int_0^p \mathbb{P}_p[t \le t^*(p_0)] dp_0 = \int_0^p F_p(t^*(p_0)) dp_0.\]</div>
+<p>We evaluate this integral standard numerical software.</p>
+<p>Next, we find MES via global optimization. Specifically, consider the following reformulation of expected shortage,</p>
+<div class="math notranslate nohighlight">
+\[\textup{ES}(p_1, p_2) = \int_0^{p_1} F_{p_2}(t^*(p_0)) dp_0.\]</div>
+<p>In this form, expected shortage is increasing in <span class="math notranslate nohighlight">\(p_1\)</span> and decreasing in <span class="math notranslate nohighlight">\(p_2\)</span>; this property is known as mixed monotonicity.
+Note that for <span class="math notranslate nohighlight">\(p_1 = p_2\)</span> we recover the original function.
+Mixed monotonic functions can be globally optimized using the branch and bound procedure given in <a class="reference internal" href="#matthiesen" id="id6"><span>[Matthiesen]</span></a>.</p>
+</section>
+<section id="uma-upper-bound">
+<h2>UMA Upper Bound<a class="headerlink" href="#uma-upper-bound" title="Link to this heading"></a></h2>
+<p>We construct a UMA upper bound on the probability of success by first computing a UMA lower bound on the probability of failure and then applying the identity</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\overline{p} = 1 - \underline{q} \\
+q = 1 - p\end{split}\]</div>
+<p>To construct a UMA lower bound on the probability of failure, <span class="math notranslate nohighlight">\(\underline{q}\)</span>, we simply use the procedure mentioned above but with the test statistic counting failures instead of successes.</p>
+</section>
+<section id="umau-2-sided-bound">
+<h2>UMAU 2-Sided Bound<a class="headerlink" href="#umau-2-sided-bound" title="Link to this heading"></a></h2>
+<p>From <a class="reference internal" href="#blyth" id="id7"><span>[Blyth]</span></a> we know that a parameter value is in the 2-sided confidence interval (<span class="math notranslate nohighlight">\(p_0 \in [\underline{p}, \overline{p}]\)</span>) if and only if</p>
+<div class="math notranslate nohighlight">
+\[n_l + \gamma_l \le K + U \le n_u + \gamma_u\]</div>
+<p>where <span class="math notranslate nohighlight">\(K\)</span> is the number of observed successes in <span class="math notranslate nohighlight">\(n\)</span> trials, <span class="math notranslate nohighlight">\(U\)</span> is a uniform random variable (thus the test statistic is <span class="math notranslate nohighlight">\(T = K + U\)</span>), and <span class="math notranslate nohighlight">\(n_l, n_u\)</span> are integers and <span class="math notranslate nohighlight">\(\gamma_l, \gamma_u \in [0,1]\)</span> that uniquely satisfy the relationships:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{gather}
+0 \le n_l \le n_u \le n+1 \\
+\gamma_l = \frac{(n_u - np_0)(\mathbb{P}_{p_0}[n_l \le K \le n_u -1] - (1-\alpha)) - n_l(1-p_0)\mathbb{P}_{p_0}[K=n_l] + n_u(1-p_0)\mathbb{P}_{p_0}[K=n_u]}
+{(n_u - n_l) \mathbb{P}_{p_0}(K = n_l)} \\
+\gamma_u = \frac{(n_l - np_0)(\mathbb{P}_{p_0}[n_l \le K \le n_u -1] - (1-\alpha)) - n_l(1-p_0)\mathbb{P}_{p_0}[K=n_l] + n_u(1-p_0)\mathbb{P}_{p_0}[K=n_u]}
+{(n_u - n_l) \mathbb{P}_{p_0}(K = n_u)}
+\end{gather}\end{split}\]</div>
+<p>Thus, given a test statistic <span class="math notranslate nohighlight">\(T\)</span>, we find <span class="math notranslate nohighlight">\(\underline{p}\)</span> by finding the smallest value of <span class="math notranslate nohighlight">\(p_0\)</span> for which the above conditions have a solution.
+Similarly, we find <span class="math notranslate nohighlight">\(\overline{p}\)</span> by finding the largest value of <span class="math notranslate nohighlight">\(p_0\)</span> for which the above conditions have a solution.</p>
+<p>Then, (employing the Ghosh-Pratt identity), we can compute expected width as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{gather}
+\textup{EW}(p) = \int_0^1 \mathbb{P}_p[\underline{p} \le p_0 \le \overline{p}] dp_0 = \int_0^1 \mathbb{P}_p[n_l + \gamma_l \le t \le n_u + \gamma_u] dp_0 \\
+ = \int_0^1 F_p(n_u + \gamma_u) - F_p(n_l + \gamma_l) dp_0
+\end{gather}\end{split}\]</div>
+<p>Similar to expected shortage (and expected excess), expected width also has a mixed monotonic form.</p>
+<div class="math notranslate nohighlight">
+\[\begin{gather}
+\textup{EW}(p_1, p_2) = \int_0^1 F_{p_2}(n_u + \gamma_u) - F_{p_1}(n_l + \gamma_l) dp_0.
+\end{gather}\]</div>
+<p>Thus, we can compute the maximum expected width (MEW) using mixed monotonic programming.</p>
+</section>
+<section id="clopper-pearson-lower-bound">
+<h2>Clopper-Pearson Lower Bound<a class="headerlink" href="#clopper-pearson-lower-bound" title="Link to this heading"></a></h2>
+<p>In the <code class="docutils literal notranslate"><span class="pre">tradeoff_table.ipynb</span></code> notebook we compare the MES of the UMA lower bound with that of the Clopper-Pearson lower bound.
+Computation of MES for the Clopper-Pearson bound can be accomplished in a similar manner to that of the UMA bound.
+The Clopper-Pearson lower confidence bound is computed as</p>
+<div class="math notranslate nohighlight">
+\[\underline{p}_{cp} = \min \{p \mid \textup{Bin}(k-1, n, p) \ge 1-\alpha \}\]</div>
+<p>where <span class="math notranslate nohighlight">\(k\)</span> is the number of successes and <span class="math notranslate nohighlight">\(n\)</span> is the number of trials.
+It follows that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{gather}
+\underline{p}_{cp} \le p_0 \iff k \le t_{cp}^*(p_0) + 1 \\
+t_{cp}^*(p_0) = \max \{t \in [0,1,\ldots,n] \mid \textup{Bin}(t, n, p_0) \le 1-\alpha \}.
+\end{gather}\end{split}\]</div>
+<p>Thus, (employing the Ghosh-Pratt identity) the expected shortage for the Clopper-Pearson lower bound is</p>
+<div class="math notranslate nohighlight">
+\[\textup{ES}_{cp}(p) = \int_0^p \mathbb{P}_p[\underline{p}_{cp} \le p_0] dp_0 = \int_0^p \mathbb{P}_p[k \le t_{cp}^*(p_0)] dp_0 = \int_0^p \textup{Bin}(t_{cp}^*(p_0), n, p) dp_0.\]</div>
+<p>It is best to evaluate this integral without integration software because the integrand is piecewise-constant.
+In addition, the expected shortage for the Clopper-Pearson lower confidence bound also has a mixed monotonic form.</p>
+<div class="math notranslate nohighlight">
+\[\textup{ES}_{cp}(p_1, p_2) = \int_0^{p_1} \textup{Bin}(t_{cp}^*(p_0), n, p_2) dp_0.\]</div>
+<p>We can use this form to find the MES for the Clopper-Pearson lower bound, as done in the <code class="docutils literal notranslate"><span class="pre">tradeoff_table.ipynb</span></code> notebook.</p>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading"></a></h2>
+<div role="list" class="citation-list">
+<div class="citation" id="vincent" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">Vincent</a><span class="fn-bracket">]</span></span>
+<p>Vincent, Joseph A., et al. “How Generalizable Is My Behavior Cloning Policy? A Statistical Approach to Trustworthy Performance Evaluation.” arXiv preprint arXiv:2405.05439 (2024).</p>
+</div>
+<div class="citation" id="lehmann" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Lehmann<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id2">2</a>,<a role="doc-backlink" href="#id4">3</a>,<a role="doc-backlink" href="#id5">4</a>)</span>
+<ol class="upperalpha simple" start="5">
+<li><ol class="upperalpha simple" start="12">
+<li><p>Lehmann and J. P. Romano, Testing Statistical Hypotheses. Springer, 2022, vol. 4.</p></li>
+</ol>
+</li>
+</ol>
+</div>
+<div class="citation" id="matthiesen" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">Matthiesen</a><span class="fn-bracket">]</span></span>
+<ol class="upperalpha simple" start="2">
+<li><p>Matthiesen, C. Hellings, E. A. Jorswieck, and W. Utschick, “Mixed Monotonic Programming for Fast Global Optimization,” IEEE Transactions on Signal Processing, vol. 68, pp. 2529–2544, 2020.</p></li>
+</ol>
+</div>
+<div class="citation" id="blyth" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id7">Blyth</a><span class="fn-bracket">]</span></span>
+<p>Blyth, Colin R., and David W. Hutchinson. “Table of Neyman-shortest unbiased confidence intervals for the binomial parameter.” Biometrika 47.3/4 (1960): 381-391.</p>
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="background.html" class="btn btn-neutral float-left" title="Background" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="notebooks.html" class="btn btn-neutral float-right" title="Notebooks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Joe Vincent.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
